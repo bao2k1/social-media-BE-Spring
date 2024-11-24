@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:17
+    container_name: postgres_db_users
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "6001:5432"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql  # Mount the init.sql script into the container
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my_network
+
+volumes:
+  postgres_data:
+
+
+networks:
+  my_network:
+    driver: bridge

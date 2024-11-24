@@ -1,0 +1,9 @@
+server:
+  servlet:
+    context-path: /api
+
+grpc:
+  client:
+    grpc-user-service:
+      address: static://localhost:9000
+      negotiationType: plaintext

@@ -1,0 +1,30 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+option java_multiple_files = true;
+
+package com.clv;
+
+message User {
+  int64 id = 1;
+  string username = 2;
+  string password = 3;
+}
+
+// Define the request message for getUser, which now only takes an ID (integer)
+message UserIdRequest {
+  int64 id = 1; // Only the ID is required for this request
+}
+
+// Define the response message for getAllUsers (returns a list of Users)
+message UserList {
+  repeated User users = 1; // List of Users
+}
+
+// Service definition
+service UserService {
+  // getUser now receives only an integer (id)
+  rpc getUser(UserIdRequest) returns (User);
+
+  // New getAllUsers method that returns a list of users
+  rpc getAllUsers(google.protobuf.Empty) returns (UserList);
+}
